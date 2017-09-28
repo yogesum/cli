@@ -5,9 +5,9 @@ import helpers from './index';
 module.exports = {
   render (path, locals, options) {
     options = _.assign({
-      beautify: true,
+      beautify: false,
       indent_size: 2,
-      preserve_newlines: false
+      preserve_newlines: true
     }, options || {});
 
     const template = helpers.asset.read(path);

@@ -1,18 +1,17 @@
-'use strict';
+const { DataTypes, Model } = require('sequelize')
 
-module.exports = (sequelize, DataTypes) => {
-  var <%= name %> = sequelize.define('<%= name %>', {
-    <% attributes.forEach(function(attribute, index) { %>
-      <%= attribute.fieldName %>: DataTypes.<%= attribute.dataFunction ? `${attribute.dataFunction.toUpperCase()}(DataTypes.${attribute.dataType.toUpperCase()})` : attribute.dataType.toUpperCase() %>
-      <%= (Object.keys(attributes).length - 1) > index ? ',' : '' %>
-    <% }) %>
-  }, {
-    <%= underscored ? 'underscored: true,' : '' %>
-  });
+const sequelize = require('../../db')
 
-  <%= name %>.associate = function(models) {
+class <%= name %> extends Model {
+  static associate() {
     // associations can be defined here
-  };
+  }
+}
 
-  return <%= name %>;
-};
+export default <%= name %>.init({<% attributes.forEach(({ dataType, fieldName, dataFunction }) => { %>
+  <%= fieldName %>: DataTypes.<%=
+    dataFunction
+      ? `${dataFunction.toUpperCase()}(DataTypes.${dataType.toUpperCase()})`
+      : dataType.toUpperCase()
+  %>,<% }) %>
+}, { sequelize<%= underscored ? ', underscored: true' : '' %> })

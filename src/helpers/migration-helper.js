@@ -5,7 +5,7 @@ const Sequelize = helpers.generic.getSequelize();
 
 module.exports = {
   getTableName (modelName) {
-    return Sequelize.Utils.pluralize(modelName);
+    return (modelName);
   },
 
   generateTableCreationFileContent (args) {
